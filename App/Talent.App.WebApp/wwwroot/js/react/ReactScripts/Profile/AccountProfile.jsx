@@ -35,11 +35,11 @@ export default class AccountProfile extends React.Component {
                 visaExpiryDate: '',
                 profilePhoto: '',
                 linkedAccounts: {
-                    linkedIn: "",
-                    github: ""
+                    linkedIn: '',
+                    github: ''
                 },
                 jobSeekingStatus: {
-                    status: "",
+                    status: '',
                     availableDate: null
                 }
             },
@@ -83,6 +83,8 @@ export default class AccountProfile extends React.Component {
     }
     //updates component's state without saving data
     updateWithoutSave(newValues) {
+        console.log('new Values:');
+        console.log(newValues);
         let newProfile = Object.assign({}, this.state.profileData, newValues)
         this.setState({
             profileData: newProfile
@@ -114,7 +116,7 @@ export default class AccountProfile extends React.Component {
             success: function (res) {
                 console.log(res)
                 if (res.success == true) {
-                    TalentUtil.notification.show("Profile updated sucessfully", "success", null, null)
+                    TalentUtil.notification.show("Profile updated successfully", "success", null, null)
                 } else {
                     TalentUtil.notification.show("Profile did not update successfully", "error", null, null)
                 }
@@ -143,6 +145,17 @@ export default class AccountProfile extends React.Component {
                             <div className="profile">
                                 <form className="ui form">
                                     <div className="ui grid">
+                                        <FormItemWrapper
+                                            title='Description'
+                                            tooltip='Write a brief description about yourself'
+                                        >
+                                            <SelfIntroduction
+                                                summary={this.state.profileData.summary}
+                                                description={this.state.profileData.description}
+                                                updateProfileData={this.updateWithoutSave}
+                                                saveProfileData={this.updateAndSaveData}
+                                            />
+                                        </FormItemWrapper>
                                         <FormItemWrapper
                                             title='Linked Accounts'
                                             tooltip='Linking to online social networks adds credibility to your profile'
@@ -187,7 +200,8 @@ export default class AccountProfile extends React.Component {
                                         >
                                             <Language
                                                 languageData={this.state.profileData.languages}
-                                                updateProfileData={this.updateAndSaveData}
+                                                updateProfileData={this.updateWithoutSave}
+                                                saveProfileData={this.updateAndSaveData}
                                             />
                                         </FormItemWrapper>
                                         <FormItemWrapper
@@ -196,7 +210,8 @@ export default class AccountProfile extends React.Component {
                                         >
                                             <Skill
                                                 skillData={this.state.profileData.skills}
-                                                updateProfileData={this.updateAndSaveData}
+                                                updateProfileData={this.updateWithoutSave}
+                                                saveProfileData={this.updateAndSaveData}
                                             />
                                         </FormItemWrapper>
                                         <FormItemWrapper
@@ -212,19 +227,19 @@ export default class AccountProfile extends React.Component {
                                             title='Education'
                                             tooltip='Add your educational background'
                                         >
-                                            <Education
+                                            {/* <Education
                                                 educationData={this.state.profileData.education}
                                                 updateProfileData={this.updateAndSaveData}
-                                            />
+                                            /> */}
                                         </FormItemWrapper>
                                         <FormItemWrapper
                                             title='Certification'
                                             tooltip='List your certificates, honors and awards'
                                         >
-                                            <Certificate
+                                            {/* <Certificate
                                                 certificateData={this.state.profileData.certifications}
                                                 updateProfileData={this.updateAndSaveData}
-                                            />
+                                            /> */}
                                         </FormItemWrapper>
                                         <FormItemWrapper
                                             title='Visa Status'
@@ -263,30 +278,24 @@ export default class AccountProfile extends React.Component {
                                             tooltip='Upload a brief self-introduction video'
                                             hideSegment={true}
                                         >
-                                            <VideoUpload
+                                            {/* <VideoUpload
                                                 videoName={this.state.profileData.videoName}
                                                 updateProfileData={this.updateWithoutSave}
                                                 saveVideoUrl={'http://localhost:60290/profile/profile/updateTalentVideo'}
-                                            />
+                                            /> */}
                                         </FormItemWrapper>
                                         <FormItemWrapper
                                             title='CV'
                                             tooltip='Upload your CV. Accepted files are pdf, doc & docx)'
                                             hideSegment={true}
                                         >
-                                            <CVUpload
+                                            {/* <CVUpload
                                                 cvName={this.state.profileData.cvName}
                                                 cvUrl={this.state.profileData.cvUrl}
                                                 updateProfileData={this.updateWithoutSave}
                                                 saveCVUrl={'http://localhost:60290/profile/profile/updateTalentCV'}
-                                            />
+                                            /> */}
                                         </FormItemWrapper>
-                                        <SelfIntroduction
-                                            summary={this.state.profileData.summary}
-                                            description={this.state.profileData.description}
-                                            updateProfileData={this.updateAndSaveData}
-                                            updateWithoutSave={this.updateWithoutSave}
-                                        />
                                     </div>
                                 </form>
                             </div >
